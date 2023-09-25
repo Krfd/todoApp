@@ -71,6 +71,11 @@
 
                         deleteButton.addEventListener("click", function () {
                             taskList.removeChild(listItem);
+                            // Alert when task is added
+                            swal({
+                                icon: "error",
+                                title: "Task Deleted",
+                            });
                         });
 
                         // Alert when task is added
