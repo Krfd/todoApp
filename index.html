@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Activity 12 | Todo App</title>
+        <link rel="icon" href="favicon/favicon.ico" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <h1>To-Do App</h1>
+        <div id="app">
+            <input
+                type="text"
+                id="todoInput"
+                placeholder="Enter a task"
+                class="input"
+            />
+            <button id="addTask" class="addTask">Add Task</button>
+        </div>
+        <ul id="taskList" class="tasks"></ul>
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js">
+            // Sweet Alert
+        </script>
+        <script>
+            // Add Task Button
+            const addTask = document.getElementById("addTask");
+            var itemId = 0;
+            addTask.addEventListener("click", function () {
+                const task = document.getElementById("todoInput").value;
+
+                while (itemId < 100) {
+                    itemId += 1;
+                    if (task === "") {
+                        swal({
+                            title: "Please enter a task",
+                            position: "center",
+                            showClass: {
+                                popup: "animate__animated animate__fadeInDown",
+                            },
+                            hideClass: {
+                                popup: "animate__animated animate__fadeOutUp",
+                            },
+                        });
+                        return;
+                    } else {
+                        // Parent container
+                        const taskList = document.getElementById("taskList");
+                        taskList.className = "list-group";
+
+                        // list items inside container
+                        const listItem = document.createElement("li");
+                        listItem.className = "list-group-item";
+                        listItem.id = itemId;
+                        listItem.innerText = task;
+                        listItem.style.textAlign = "left";
+
+                        // buttons inside list items
+                        const deleteButton = document.createElement("button");
+                        deleteButton.className = "delete";
+                        deleteButton.id = "delete";
+                        deleteButton.innerText = "X";
+
+                        // append child container to parent container
+                        taskList.appendChild(listItem);
+                        listItem.append(deleteButton);
+                        document.getElementById("todoInput").value = "";
+
+                        // Deleting a task
+
+                        deleteButton.addEventListener("click", function () {
+                            taskList.removeChild(listItem);
+                        });
+
+                        // Alert when task is added
+                        swal({
+                            title: "Task Added!",
+                            position: "center",
+                            showClass: {
+                                popup: "animate__animated animate__fadeInDown",
+                            },
+                            hideClass: {
+                                popup: "animate__animated animate__fadeOutUp",
+                            },
+                        });
+
+                        return;
+                    }
+                }
+                itemId++;
+            });
+        </script>
+    </body>
+</html>
